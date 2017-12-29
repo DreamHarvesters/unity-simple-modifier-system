@@ -38,11 +38,6 @@ namespace DH.ModifierSystem
             this.modifiable = modifiable;
         }
 
-        public override void Revert(ModifiableType modifiable)
-        {
-            base.Revert(modifiable);
-        }
-
         public float Lifetime { get { return lifetime; } }
 
         public void Born(){}
