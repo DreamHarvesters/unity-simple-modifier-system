@@ -18,6 +18,8 @@ namespace DH.ModifierSystem
             modifier = Substitute.For<IModifier>();
             modifiable = Substitute.For<IModifiable>();
 
+            modifier.ModifierType.Returns(typeof(IModifier));
+
             activeModifications = new ActiveModifications();
         }
 
@@ -53,6 +55,7 @@ namespace DH.ModifierSystem
             Init();
 
             IModifier modifier2 = Substitute.For<IModifier>();
+            modifier2.ModifierType.Returns(typeof(IModifier));
 
             activeModifications.Add(modifiable, modifier);
             activeModifications.Add(modifiable, modifier2);
@@ -71,6 +74,7 @@ namespace DH.ModifierSystem
             Init();
 
             IModifier modifier2 = Substitute.For<IModifier>();
+            modifier2.ModifierType.Returns(typeof(IModifier));
 
             activeModifications.Add(modifiable, modifier);
             activeModifications.Add(modifiable, modifier2);
@@ -89,6 +93,8 @@ namespace DH.ModifierSystem
 
             IModifiable modifiable2 = Substitute.For<IModifiable>();
             IModifier modifier2 = Substitute.For<IModifier>();
+
+            modifier2.ModifierType.Returns(typeof(IModifier));
 
             activeModifications.Add(modifiable, modifier);
             activeModifications.Add(modifiable2, modifier2);
