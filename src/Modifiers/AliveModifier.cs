@@ -21,12 +21,19 @@ namespace DH.ModifierSystem
 			
             timer.Start();
 
-            timer.Elapsed += (sender, e) => Die();
+            timer.Elapsed += Timer_Elapsed;
+        }
+
+        void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Die();
         }
 
         void KillTimer()
         {
+            timer.Elapsed -= Timer_Elapsed;
             timer.Stop();
+            timer.Dispose();
         }
 
         public override void Modify(ModifiableType modifiable)
@@ -47,6 +54,13 @@ namespace DH.ModifierSystem
             KillTimer();
 
             OnDead();
+        }
+
+        public void Reset()
+        {
+            KillTimer();
+
+            SetupTimer();
         }
 
         public void OnDead()

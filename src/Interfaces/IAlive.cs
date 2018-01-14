@@ -7,6 +7,7 @@
         void Born();
         void Live();
 		void Die();
+        void Reset();
 
         void OnDead ();
 	}
