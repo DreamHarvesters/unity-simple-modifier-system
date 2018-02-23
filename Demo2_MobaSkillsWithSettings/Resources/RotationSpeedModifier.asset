@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f8f4941a8d49eabe97a87450b46c5a, type: 3}
   m_Name: RotationSpeedModifier
   m_EditorClassIdentifier: 
-  name: Demo2_MobaSkillsWithSettings/RotationSpeedModifier
+  name: DH.ModifierSystem.Demo2_MobaSkillsWithSettings.RotationSpeedModifier
   duration: 0
