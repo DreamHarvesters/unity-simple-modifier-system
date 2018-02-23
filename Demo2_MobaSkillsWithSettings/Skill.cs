@@ -2,16 +2,15 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace DH.ModifierSystem.Demo1_MobalSkills
+namespace DH.ModifierSystem.Demo2_MobaSkillsWithSettings
 {
     public class Skill
     {
         private Modifier<Character>[] modifiers;
 
-        public Skill()
+        public Skill(Modifier<Character>[] modifiers)
         {
-            modifiers = new Modifier<Character>[] { new Modifier1(), 
-                new AliveModifier<Character> (new Modifier2(), 2)};
+            this.modifiers = modifiers;
         }
 
         public void Activate(Character character)

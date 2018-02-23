@@ -5,33 +5,36 @@ using System.Collections.Generic;
 
 namespace DH.ModifierSystem
 {
+    public class ModifierList : List<IModifier> {}
+    public class ModifierMap : Dictionary<System.Type, ModifierList> {}
+    
     public class ActiveModifications
     {
-        private Dictionary<IModifiable, Dictionary<System.Type, List<IModifier>>> activeModifications = new Dictionary<IModifiable, Dictionary<System.Type, List<IModifier>>>();
+        private Dictionary<IModifiable, ModifierMap> activeModifications = new Dictionary<IModifiable, ModifierMap>();
 
         public void Add(IModifiable modifiable, IModifier modifier)
         {
-            Dictionary<System.Type, List<IModifier>> modifiers = FindOrCreateModifierDictionary(modifiable);
+            ModifierMap modifiers = FindOrCreateModifierDictionary(modifiable);
             List<IModifier> modifierList = FindOrCreateModifierList(modifiers, modifier.ModifierType);
             modifierList.Add(modifier);
         }
 
         public void Remove(IModifiable modifiable, IModifier modifier)
         {
-            Dictionary<System.Type, List<IModifier>> modifiers = FindOrCreateModifierDictionary(modifiable);
+            ModifierMap modifiers = FindOrCreateModifierDictionary(modifiable);
             List<IModifier> modifierList = FindOrCreateModifierList(modifiers, modifier.ModifierType);
             modifierList.Remove(modifier);
         }
 
         public void RemoveAll(IModifiable modifiable)
         {
-            Dictionary<System.Type, List<IModifier>> modifiers = FindOrCreateModifierDictionary(modifiable);
+            ModifierMap modifiers = FindOrCreateModifierDictionary(modifiable);
             modifiers.Clear();
         }
 
         public IModifier[] GetModifiersOn(IModifiable modifiable)
         {
-            Dictionary<System.Type, List<IModifier>> modifiers = FindOrCreateModifierDictionary(modifiable);
+            ModifierMap modifiers = FindOrCreateModifierDictionary(modifiable);
             List<IModifier> modifierList = new List<IModifier>();
             foreach (var modifierTypeList in modifiers)
                 modifierList.AddRange(modifierTypeList.Value);
@@ -39,33 +42,33 @@ namespace DH.ModifierSystem
             return modifierList.ToArray();
         }
 
-        public ModifierType[] GetModifiersOn<ModifierType>(IModifiable modifiable) where ModifierType : class, IModifier
+        public ModifierType[] GetModifiersOn<ModifierType>(IModifiable modifiable) where ModifierType : IModifier
         {
-            Dictionary<System.Type, List<IModifier>> modifiers = FindOrCreateModifierDictionary(modifiable);
+            ModifierMap modifiers = FindOrCreateModifierDictionary(modifiable);
             List<ModifierType> modifierList = FindOrCreateModifierList(modifiers, typeof(ModifierType)) as List<ModifierType>;
             return modifierList.ToArray();
         }
 
-        Dictionary<System.Type, List<IModifier>> FindOrCreateModifierDictionary(IModifiable modifiable)
+        ModifierMap FindOrCreateModifierDictionary(IModifiable modifiable)
         {
-            Dictionary<System.Type, List<IModifier>> modifiers;
+            ModifierMap modifiers;
 
             if (!activeModifications.TryGetValue(modifiable, out modifiers))
             {
-                modifiers = new Dictionary<System.Type, List<IModifier>>();
+                modifiers = new ModifierMap();
                 activeModifications.Add(modifiable, modifiers);
             }
 
             return modifiers;
         }
 
-        List<IModifier> FindOrCreateModifierList(Dictionary<System.Type, List<IModifier>> modifiers, System.Type modifierType)
+        List<IModifier> FindOrCreateModifierList(ModifierMap modifiers, System.Type modifierType)
         {
-            List<IModifier> modifierList;
+            ModifierList modifierList;
 
             if(!modifiers.TryGetValue(modifierType, out modifierList))
             {
-                modifierList = new List<IModifier>();
+                modifierList = new ModifierList();
                 modifiers.Add(modifierType, modifierList);
             }
 
