@@ -43,6 +43,8 @@ namespace DH.ModifierSystem
             SetupTimer();
 
             this.modifiable = modifiable;
+            
+            modifiable.OnModificationApplied(this);
         }
 
         public float Lifetime { get { return lifetime; } }

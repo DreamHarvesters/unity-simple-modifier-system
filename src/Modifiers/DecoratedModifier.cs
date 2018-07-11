@@ -6,6 +6,10 @@ namespace DH.ModifierSystem
     public class DecoratedModifier<ModifiableType> : Modifier<ModifiableType> where ModifiableType : IModifiable
     {
         protected Modifier<ModifiableType> originalModifier;
+        public Modifier<ModifiableType> OrginalModifier
+        {
+            get { return originalModifier; }
+        }
 
         public DecoratedModifier(Modifier<ModifiableType> originalModifier)
         {
@@ -20,6 +24,8 @@ namespace DH.ModifierSystem
         public override void Revert(ModifiableType modifiable)
         {
             originalModifier.Revert(modifiable);
+            
+            modifiable.OnModificationReverted(this);
         }
     }
 }
