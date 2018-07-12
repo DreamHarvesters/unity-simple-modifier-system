@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab71071ab0144b78890c30e56e63f80, type: 3}
+  m_Name: Character Data
+  m_EditorClassIdentifier: 
+  skills:
+  - name: Skill1
+    cooldown: 0
+    modifiers:
+    - {fileID: 11400000, guid: 86ba5bb101f884071abf56c103a6ec14, type: 2}
+  - name: Skill2
+    cooldown: 0
+    modifiers:
+    - {fileID: 11400000, guid: 86ba5bb101f884071abf56c103a6ec14, type: 2}
+    - {fileID: 11400000, guid: cb675b9e2e70743b1ba2842e3d841d2f, type: 2}
+  - name: Skill3
+    cooldown: 0
+    modifiers:
+    - {fileID: 11400000, guid: cb675b9e2e70743b1ba2842e3d841d2f, type: 2}
