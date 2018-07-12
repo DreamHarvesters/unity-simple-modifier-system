@@ -8,23 +8,25 @@ namespace DH.ModifierSystem
     {
         private ModifiableType modifiable;
         private float lifetime;
-        private Timer timer;
+        private ITimerFactory timerFactory;
+        private ITimer timer;
 
-        public AliveModifier(Modifier<ModifiableType> originalModifier, float lifetime) : base(originalModifier)
+        public AliveModifier(Modifier<ModifiableType> originalModifier, ITimerFactory timerFactory, float lifetime) : base(originalModifier)
         {
+            this.timerFactory = timerFactory;
             this.lifetime = lifetime;
         }
 
         void SetupTimer()
         {
-            timer = new Timer(lifetime * 1000);
-			
-            timer.Start();
+            timer = timerFactory.GetTimer();
+            
+            timer.Start(lifetime);
 
             timer.Elapsed += Timer_Elapsed;
         }
 
-        void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        void Timer_Elapsed()
         {
             Die();
         }
