@@ -19,6 +19,8 @@ namespace DH.ModifierSystem
         public override void Modify(ModifiableType modifiable)
         {
             originalModifier.Modify(modifiable);
+            
+            modifiable.OnModificationApplied(this);
         }
 
         public override void Revert(ModifiableType modifiable)
